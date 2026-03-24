@@ -6,6 +6,7 @@ FaceGuard is an AI-powered facial recognition system developed as part of a Cybe
 This project demonstrates how deep learning can be applied to real-world cybersecurity scenarios, specifically identity verification and access control.
 
 🎯 Key Features
+
 🔍 Facial recognition using a custom CNN model
 🧠 Classification of 40 unique individuals
 📊 Training and evaluation using a real dataset
@@ -16,6 +17,7 @@ This project demonstrates how deep learning can be applied to real-world cyberse
 The CNN model is implemented using PyTorch and is designed for grayscale facial images (64×64).
 
 Architecture Highlights:
+
 Multiple Convolutional layers for feature extraction
 ReLU activation to introduce non-linearity
 MaxPooling layers to reduce spatial dimensions
@@ -26,6 +28,7 @@ Design Rationale:
 CNNs are well-suited for image recognition tasks due to their ability to capture spatial hierarchies in data. Using grayscale images reduces computational cost while maintaining essential facial features. Pooling layers help improve generalisation, and fully connected layers enable accurate classification across multiple identities.
 
 📊 Dataset
+
 Dataset: Augmented Olivetti Faces Dataset
 Classes: 40 individuals
 Image Format: Grayscale (64×64)
@@ -33,7 +36,9 @@ Preprocessing:
 Normalised pixel values to range [0,1]
 Reshaped to (N, 1, 64, 64)
 Stratified train-test split (80/20)
+
 ⚙️ Training Details
+
 Framework: PyTorch
 Loss Function: CrossEntropyLoss
 Optimiser: Adam
@@ -42,7 +47,9 @@ Data loaded using PyTorch DataLoader
 Model trained over multiple epochs
 Validation performed during training
 Performance evaluated using accuracy metrics
+
 📈 Results
+
 Test Accuracy: 98.75%
 Analysis:
 
@@ -66,6 +73,7 @@ Authorised Personnel:
 {0, 5, 10}
 
 Function Behaviour:
+
 Takes an input face image
 Predicts the identity using the trained CNN
 Outputs:
@@ -76,11 +84,13 @@ Outputs:
 The system is tested on multiple images, including both authorised and unauthorised individuals, to validate correct access decisions.
 
 💡 Future Improvements
+
 Implement deeper architectures (e.g., ResNet)
 Add real-time face recognition using a webcam
 Improve accuracy with larger datasets
 Integrate face detection before recognition
 
 👤 Author
+
 Yukti Ogare
 AI & Cybersecurity Student
