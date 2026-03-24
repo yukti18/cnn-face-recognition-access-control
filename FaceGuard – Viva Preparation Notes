@@ -1,0 +1,210 @@
+🧠 FaceGuard – Viva Preparation Notes
+
+These notes were prepared to support understanding and explanation of the CNN-based facial recognition system developed for the FaceGuard cybersecurity project.
+
+🔹 CNN & Architecture
+
+1. Why use a CNN for faces?
+CNNs are highly effective for image tasks because they automatically learn patterns such as edges, facial features (eyes, nose), and overall structure.
+
+2. What does a convolution layer learn?
+It learns filters that first detect edges, then higher-level features like facial parts.
+
+3. Why ReLU?
+ReLU introduces non-linearity, allowing the model to learn complex patterns and improving training speed.
+
+4. Why pooling?
+Pooling reduces spatial size and computation while making the model more robust to small shifts.
+
+5. Average vs Max Pooling
+
+Average pooling → takes average values
+Max pooling → takes strongest features
+Both work, but different architectures prefer different types.
+
+6. What does BatchNorm do?
+Normalizes activations to stabilise and speed up training.
+
+7. Why Dropout?
+Reduces overfitting by randomly disabling neurons during training.
+
+8. Why no Softmax in forward()?
+Because CrossEntropyLoss already applies Softmax internally.
+
+9. What are logits?
+Raw outputs from the model before converting to probabilities.
+
+10. Why 40 classes?
+Because the dataset contains 40 individuals.
+
+🔹 Data & Preprocessing
+
+11. Why reshape to (N,1,64,64)?
+PyTorch expects data in (batch, channels, height, width). Grayscale → 1 channel.
+
+12. Why normalize images?
+To scale pixel values to a smaller range, improving learning stability.
+
+13. What was the bug?
+Images were normalized twice, making them almost black.
+
+14. Why stratify the split?
+Ensures each class is evenly distributed across datasets.
+
+15. Why validation set?
+To monitor model performance during training without using test data.
+
+🔹 Training & Optimization
+
+16. What does Adam do?
+Adjusts learning rates automatically for faster and stable training.
+
+17. Why weight decay?
+Prevents large weights → reduces overfitting.
+
+18. train() vs eval()
+
+train() → enables dropout & batchnorm updates
+eval() → disables dropout, uses fixed statistics
+
+19. Why torch.no_grad()?
+Saves memory and speeds up evaluation.
+
+20. Why validation loss spikes?
+Small dataset → a few difficult samples can increase loss.
+
+🔹 Metrics & Interpretation
+
+21. High train accuracy, lower validation accuracy?
+Indicates overfitting.
+
+22. Train 100% and validation 98%?
+Good generalisation.
+
+23. What is test accuracy?
+Performance on completely unseen data.
+
+24. Why can access be denied incorrectly?
+Wrong prediction → wrong identity → access denied.
+
+25. FAR (False Accept Rate)
+Unauthorized user incorrectly allowed.
+
+26. FRR (False Reject Rate)
+Authorized user incorrectly denied.
+
+27. Which is worse?
+FAR is more dangerous in security systems.
+
+🔹 Access Control Logic
+
+28. Why use predicted ID?
+In real systems, true identity is unknown.
+
+29. What does check_access() do?
+Predicts identity and checks if it is in {0, 5, 10}.
+
+30. How to reduce false accepts?
+Use confidence thresholds or multi-factor authentication.
+
+31. Why confidence threshold?
+Low confidence predictions are more likely incorrect.
+
+🔹 Debugging
+
+32. How to verify model is learning?
+Loss decreases, accuracy increases, predictions vary.
+
+33. What is chance accuracy?
+1/40 = 2.5%.
+
+34. Why did model predict one class?
+Images were nearly black due to double normalization.
+
+35. How was it fixed?
+Normalized only once (divide by 255).
+
+🔹 Improvements
+
+36. Improve robustness?
+Use augmentation, better models, early stopping.
+
+37. Would ResNet help?
+Yes, but more complex.
+
+38. Handle new employees?
+Add “unknown” class or use verification.
+
+39. Why is classification limited?
+Unknown users are forced into known classes.
+
+40. What is verification?
+Compare similarity instead of classifying identity.
+
+🔹 Ethics & Security
+
+41. Risks of face recognition?
+Bias, spoofing, privacy concerns.
+
+42. Prevent spoofing?
+Use liveness detection or multi-factor authentication.
+
+43. Privacy concerns?
+Secure storage, user consent, limited data usage.
+
+🔹 Technical Basics
+
+44. Why labels must be long?
+CrossEntropyLoss requires integer labels.
+
+45. Why flatten before FC?
+Fully connected layers need 1D input.
+
+46. What does padding do?
+Keeps feature map size consistent.
+
+47. Pooling effect on size?
+Reduces width and height (usually halves).
+
+48. What does argmax do?
+Selects the class with highest score.
+
+49. Why evaluate each epoch?
+To monitor training and detect overfitting.
+
+🔹 Extra Concepts
+
+50. What is random_state?
+Ensures reproducible data splits.
+
+51. What is a dataset wrapper?
+Defines how data is loaded and accessed in PyTorch.
+
+52. What is nn.Module?
+Base class for all neural networks in PyTorch.
+
+53. What is ReLU?
+Activation function: f(x) = max(0, x)
+
+54. What is AvgPool2d?
+Averages values in a small region to reduce size.
+
+55. What is Conv2d?
+Extracts features like edges and textures.
+
+56. What are 64, 14×14, 256?
+Dimensions of feature maps inside the network.
+
+57. What is Dropout?
+Randomly disables neurons during training.
+
+58. What is forward()?
+Defines how input flows through the network.
+
+59. What is learning rate?
+Controls how much weights update each step.
+
+60. Most important bug fixed?
+Double normalization that destroyed image information.
+
+💡 These notes were used for viva preparation and demonstrate understanding of CNNs, training, debugging, and applying AI in cybersecurity systems.
